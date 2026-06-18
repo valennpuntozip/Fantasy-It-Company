@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creación de Usuario Administrativo</title>
+    <link rel="stylesheet" href="../CSS/style.crearusuario.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="../Assets/img/logo.png" alt="Hospital de Clínicas" />
+        <nav>
+            <div class="nav-group" id="nav-formularios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-formularios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="Vehiculos.html" class="nav-group__label">Formularios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-formularios">
+                    <a href="Translado.html">Solicitud de traslado</a>
+                </div>
+            </div>
+            <a href="reportes.html">Reportes</a>
+            <a href="panelAD.html">Panel administrativo</a>
+            <div class="nav-group is-open" id="nav-usuarios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="true" aria-controls="submenu-usuarios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="usGest.html" class="nav-group__label">Gestión de usuarios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-usuarios">
+                    <a href="Crearusuario.html" class="active">Crear usuario</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="page">
+        <header class="page-header">
+            <h1>Creación de Usuario Administrativo</h1>
+        </header>
+
+        <section class="page-content">
+            <div class="form-card">
+                <h2>Ingrese los datos</h2>
+
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="cedula">Cédula</label>
+                        <input type="text" id="cedula" name="cedula" placeholder="1234567" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contrasena">Contraseña</label>
+                        <input type="password" id="contrasena" name="contrasena" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="repetir">Repetir contraseña</label>
+                        <input type="password" id="repetir" name="repetir" />
+                    </div>
+
+                    <button type="button" class="btn-submit">Crear usuario</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-group__toggle').forEach(function (toggle) {
+            toggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                var group = toggle.closest('.nav-group');
+                var isOpen = group.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        });
+    </script>
+</body>
+</html>

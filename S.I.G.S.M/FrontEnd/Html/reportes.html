@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes</title>
+    <link rel="stylesheet" href="../CSS/style.reportes.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="../Assets/img/logo.png" alt="Hospital de Clínicas" />
+        <nav>
+            <div class="nav-group" id="nav-formularios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-formularios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="Vehiculos.html" class="nav-group__label">Formularios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-formularios">
+                    <a href="Translado.html">Solicitud de traslado</a>
+                </div>
+            </div>
+            <a href="reportes.html" class="active">Reportes</a>
+            <a href="panelAD.html">Panel administrativo</a>
+            <div class="nav-group" id="nav-usuarios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-usuarios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="usGest.html" class="nav-group__label">Gestión de usuarios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-usuarios">
+                    <a href="Crearusuario.html">Crear usuario</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="page">
+        <header class="page-header">
+            <h1>Reportes</h1>
+        </header>
+
+        <section class="page-content">
+            <div class="content-intro">
+                <h2>Reportes de transporte</h2>
+                <p>Resumen ficticio de actividad de ambulancias y traslados</p>
+            </div>
+
+            <div class="reports-grid">
+                <article class="report-card">
+                    <div>
+                        <h3>Traslados realizados — Mayo 2024</h3>
+                        <p>Total de traslados entre hospitales y centros de salud.</p>
+                        <span class="report-tag">Mensual</span>
+                    </div>
+                    <div class="report-meta">
+                        Total
+                        <strong>47</strong>
+                    </div>
+                </article>
+
+                <article class="report-card">
+                    <div>
+                        <h3>Tiempo promedio de respuesta</h3>
+                        <p>Desde la solicitud hasta la salida de la ambulancia.</p>
+                        <span class="report-tag">Operativo</span>
+                    </div>
+                    <div class="report-meta">
+                        Promedio
+                        <strong>18 min</strong>
+                    </div>
+                </article>
+
+                <article class="report-card">
+                    <div>
+                        <h3>Uso de oxígeno en traslados</h3>
+                        <p>Porcentaje de viajes que requirieron suministro de oxígeno.</p>
+                        <span class="report-tag">Clínico</span>
+                    </div>
+                    <div class="report-meta">
+                        Porcentaje
+                        <strong>32%</strong>
+                    </div>
+                </article>
+
+                <article class="report-card">
+                    <div>
+                        <h3>Ambulancias activas por turno</h3>
+                        <p>Flota disponible en turno matutino, vespertino y nocturno.</p>
+                        <span class="report-tag">Flota</span>
+                    </div>
+                    <div class="report-meta">
+                        Activas
+                        <strong>6 / 8</strong>
+                    </div>
+                </article>
+
+                <article class="report-card">
+                    <div>
+                        <h3>Destinos más frecuentes</h3>
+                        <p>Hospital MASI, Centro de Salud Nº 3 y Policlínica Universitaria.</p>
+                        <span class="report-tag">Geográfico</span>
+                    </div>
+                    <div class="report-meta">
+                        Principal
+                        <strong>MASI</strong>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-group__toggle').forEach(function (toggle) {
+            toggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                var group = toggle.closest('.nav-group');
+                var isOpen = group.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        });
+    </script>
+</body>
+</html>

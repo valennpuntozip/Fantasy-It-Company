@@ -1,0 +1,231 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            background: #f3f7fb;
+            color: #0f172a;
+        }
+
+        body {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #ffffff;
+            border-right: 1px solid rgba(15, 23, 42, 0.08);
+            padding: 28px 18px;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar img {
+            display: block;
+            width: 120px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar nav {
+            display: grid;
+            gap: 12px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #0f172a;
+            font-size: 0.95rem;
+            padding: 12px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #d0f2f7;
+        }
+
+        .page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 220px;
+        }
+
+        .page-header {
+            background: linear-gradient(180deg, #1fa1d0 0%, #81d4fa 100%);
+            padding: 28px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: clamp(1.7rem, 2.5vw, 2.5rem);
+            color: #0f172a;
+            font-weight: bold;
+        }
+
+        .page-content {
+            padding: 28px 32px;
+            flex: 1;
+        }
+
+        .content-header h2 {
+            color: #0f172a;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .content-header p {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 24px;
+        }
+
+        .survey-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .stats-column {
+            display: grid;
+            gap: 20px;
+        }
+
+        .stat-card {
+            padding: 28px 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .stat-card__label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .stat-card__value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .stat-card--satisfaction {
+            background: #b3e5fc;
+            color: #0f172a;
+        }
+
+        .stat-card--completed {
+            background: #66bb6a;
+            color: #ffffff;
+        }
+
+        .survey-form-card {
+            background: #d0d0d0;
+            padding: 24px;
+            border-radius: 8px;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .survey-form-card__header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .survey-form-card__icon {
+            font-size: 1.25rem;
+        }
+
+        .survey-form-card__title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 12px;
+            background: #fff;
+            color: #333;
+        }
+
+        .rating-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .rating-row span {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .survey-layout {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            }
+
+            .page {
+                margin-left: 0;
+            }
+        }

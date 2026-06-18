@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo</title>
+    <link rel="stylesheet" href="../CSS/style.panelad.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="../Assets/img/logo.png" alt="Hospital de Clínicas" />
+        <nav>
+            <div class="nav-group" id="nav-formularios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-formularios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="Vehiculos.html" class="nav-group__label">Formularios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-formularios">
+                    <a href="Translado.html">Solicitud de traslado</a>
+                </div>
+            </div>
+            <a href="reportes.html">Reportes</a>
+            <a href="panelAD.html" class="active">Panel administrativo</a>
+            <div class="nav-group" id="nav-usuarios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-usuarios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="usGest.html" class="nav-group__label">Gestión de usuarios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-usuarios">
+                    <a href="Crearusuario.html">Crear usuario</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="page">
+        <header class="page-header">
+            <h1>Panel Administrativo</h1>
+        </header>
+
+        <section class="page-content">
+            <div class="content-intro">
+                <h2>Panel Administrativo</h2>
+                <p>Gestión de documentación del Hospital de Clínicas</p>
+            </div>
+
+            <div class="admin-card">
+                <h3>Cargar nuevo documento</h3>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="nombre-doc">Nombre del documento</label>
+                        <input type="text" id="nombre-doc" name="nombre-doc" />
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoría</label>
+                        <select id="categoria" name="categoria">
+                            <option selected>Laboratorio</option>
+                            <option>Protocolos</option>
+                            <option>Guías</option>
+                            <option>Formularios</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn-upload">Cargar documento</button>
+                </form>
+            </div>
+
+            <div class="admin-card">
+                <h3>Documentos cargados</h3>
+                <div class="doc-list">
+                    <article class="doc-item">
+                        <h4>Protocolo</h4>
+                        <p>Proyecto descripción</p>
+                        <div class="doc-item__actions">
+                            <button type="button" class="btn-cat">Categoría</button>
+                            <button type="button" class="btn-view">Ver/Editar</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-group__toggle').forEach(function (toggle) {
+            toggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                var group = toggle.closest('.nav-group');
+                var isOpen = group.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        });
+    </script>
+</body>
+</html>

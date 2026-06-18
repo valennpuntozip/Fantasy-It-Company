@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuestas</title>
+    <link rel="stylesheet" href="../CSS/style.encuesta.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="../Assets/img/logo.png" alt="Hospital de Clínicas" />
+        <nav>
+            <a href="docPac.html">Gestión de Documentos</a>
+            <a href="encuesta.html" class="active">Encuestas</a>
+        </nav>
+    </aside>
+
+    <div class="page">
+        <header class="page-header">
+            <h1>Encuestas</h1>
+        </header>
+
+        <section class="page-content">
+            <div class="content-header">
+                <h2>Encuesta de satisfacción</h2>
+                <p>Ayúdanos a mejorar nuestros servicios con su opinión</p>
+            </div>
+
+            <div class="survey-layout">
+                <div class="stats-column">
+                    <div class="stat-card stat-card--satisfaction">
+                        <div class="stat-card__label">Satisfacción general</div>
+                        <div class="stat-card__value">4/5</div>
+                    </div>
+                    <div class="stat-card stat-card--completed">
+                        <div class="stat-card__label">Encuestas completadas</div>
+                        <div class="stat-card__value">12</div>
+                    </div>
+                </div>
+
+                <div class="form-column">
+                    <div class="survey-form-card">
+                        <div class="survey-form-card__header">
+                            <span class="survey-form-card__icon" aria-hidden="true">📋</span>
+                            <span class="survey-form-card__title">Nueva Encuesta</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="servicio">Servicio utilizado:</label>
+                            <select id="servicio" name="servicio">
+                                <option selected>Odontología</option>
+                                <option>Cardiología</option>
+                                <option>Pediatría</option>
+                                <option>Emergencias</option>
+                            </select>
+                        </div>
+
+                        <div class="rating-row" aria-label="Escala de satisfacción">
+                            <span>😠</span>
+                            <span>😕</span>
+                            <span>😐</span>
+                            <span>🙂</span>
+                            <span>😄</span>
+                        </div>
+
+                        <button type="button" class="btn-submit">ENVIAR ENCUESTA</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

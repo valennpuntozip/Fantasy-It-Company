@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Traslado</title>
+    <link rel="stylesheet" href="../CSS/style.translado.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="../Assets/img/logo.png" alt="Hospital de Clínicas" />
+        <nav>
+            <div class="nav-group is-open" id="nav-formularios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="true" aria-controls="submenu-formularios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="Vehiculos.html" class="nav-group__label">Formularios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-formularios">
+                    <a href="Translado.html" class="active">Solicitud de traslado</a>
+                </div>
+            </div>
+            <a href="reportes.html">Reportes</a>
+            <a href="panelAD.html">Panel administrativo</a>
+            <div class="nav-group" id="nav-usuarios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-usuarios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="usGest.html" class="nav-group__label">Gestión de usuarios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-usuarios">
+                    <a href="Crearusuario.html">Crear usuario</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="page">
+        <header class="page-header">
+            <h1>Solicitud de Traslado</h1>
+        </header>
+
+        <section class="page-content">
+            <div class="form-card">
+                <h2>Ingrese los datos de la ambulancia</h2>
+
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="cedula">Cédula del paciente</label>
+                        <input type="text" id="cedula" name="cedula" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chofer">Nombre del chofer</label>
+                        <input type="text" id="chofer" name="chofer" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enfermero">Nombre del enfermero</label>
+                        <input type="text" id="enfermero" name="enfermero" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="salida">Hora de salida</label>
+                        <input type="time" id="salida" name="salida" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="llegada">Hora de llegada estimada</label>
+                        <input type="time" id="llegada" name="llegada" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="oxigeno">¿Precisa oxígeno?</label>
+                        <select id="oxigeno" name="oxigeno">
+                            <option value="">Seleccionar</option>
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="camilla">Tipo de camilla</label>
+                        <select id="camilla" name="camilla">
+                            <option value="">Seleccionar</option>
+                            <option value="estandar">Estándar</option>
+                            <option value="bariatrica">Bariátrica</option>
+                            <option value="pediatrica">Pediátrica</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary">Crear solicitud de traslado</button>
+                        <a href="Vehiculos.html" class="btn btn-secondary">Volver a Transporte de Vehículos</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-group__toggle').forEach(function (toggle) {
+            toggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                var group = toggle.closest('.nav-group');
+                var isOpen = group.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+:root { --primary: #0b4f6c; --accent: #08beff; }
+            html,body{height:100%;margin:0;font-family:Segoe UI, system-ui, -apple-system, sans-serif;background:#f4f8fb;color:#0f172a}
+            header{background:linear-gradient(135deg,var(--accent) 0%, #08d7e1 100%);padding:20px 0;color:#fff;border-bottom:4px solid var(--accent)}
+            .header-container{width:min(1100px,calc(100% - 32px));margin:0 auto;display:flex;align-items:center;justify-content:center;gap:16px}
+            .header-logo{width:160px;height:auto;display:block}
+            .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+            .card{background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 24px rgba(11,79,108,0.08);width:100%;max-width:440px}
+            h1{margin:0 0 10px;font-size:1.25rem;color:var(--primary)}
+            p.lead{margin:0 0 18px;color:#64748b}
+            .form-group{margin-bottom:12px}
+            label{display:block;font-weight:700;margin-bottom:6px;font-size:0.9rem}
+            input{width:100%;padding:10px 12px;border:1px solid #dbe4ee;border-radius:8px;font-size:1rem}
+            .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+            .btn-primary{background:var(--primary);color:#fff;width:100%}
+            .guest-row{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+            .guest-row p{margin:0;color:#64748b}
+            .btn-ghost{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:8px 12px;border-radius:8px}
+            @media (max-width:420px){.card{padding:18px}}

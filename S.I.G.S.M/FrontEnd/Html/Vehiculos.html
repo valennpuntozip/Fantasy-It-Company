@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transporte de Vehículos</title>
+    <link rel="stylesheet" href="../CSS/style.vehiculos.css" />
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="../Assets/img/logo.png" alt="Hospital de Clínicas" />
+        <nav>
+            <div class="nav-group" id="nav-formularios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-formularios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="Vehiculos.html" class="nav-group__label active">Formularios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-formularios">
+                    <a href="Translado.html">Solicitud de traslado</a>
+                </div>
+            </div>
+            <a href="reportes.html">Reportes</a>
+            <a href="panelAD.html">Panel administrativo</a>
+            <div class="nav-group" id="nav-usuarios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false" aria-controls="submenu-usuarios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="usGest.html" class="nav-group__label">Gestión de usuarios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-usuarios">
+                    <a href="Crearusuario.html">Crear usuario</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+    <div class="page">
+        <header class="page-header">
+            <h1>Transporte de Vehículos</h1>
+        </header>
+        <section class="page-content">
+            <div class="top-panel">
+                <div>
+                    <h2>Control y Seguimiento</h2>
+                </div>
+                <a href="Translado.html" class="primary-btn">Crear solicitud de traslado</a>
+            </div>
+
+            <div class="grid-panel">
+                <section class="panel">
+                    <div class="panel-header">
+                        <h3>Traslados</h3>
+                    </div>
+                    <input class="search-input" type="search" placeholder="Buscar por paciente, conductor o destino" />
+                </section>
+
+                <section class="panel mini-card">
+                    <div class="title">
+                        <div class="badge"><img src="../Assets/img/ambulancia.png" alt="Ambulancia" /></div>
+                        <div>
+                            <strong>Programación</strong>
+                        </div>
+                    </div>
+                    <p><strong>Chofer:</strong> Juan Pérez</p>
+                    <p><strong>Cédula:</strong> 12345678</p>
+                    <div class="details-row">
+                        <span>Estado en curso<strong>En curso</strong></span>
+                        <span>Enfermero<strong>María</strong></span>
+                        <span>Origen<strong>Hospital de Clínicas</strong></span>
+                        <span>Salida<strong>8:30</strong></span>
+                        <span>Destino<strong>Hospital MASI</strong></span>
+                        <span>Llegada estimada<strong>9:15</strong></span>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelectorAll('.nav-group__toggle').forEach(function (toggle) {
+            toggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                var group = toggle.closest('.nav-group');
+                var isOpen = group.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        });
+    </script>
+</body>
+</html>
