@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="../CSS/style.usgest.css" />
+</head>
+
+<body>
+    <aside class="sidebar">
+        <a href="botones.html"><img src="../Assets/img/logo.png" alt="Hospital de Clínicas" /></a>
+        <nav>
+            <div class="nav-group" id="nav-formularios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="false"
+                        aria-controls="submenu-formularios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="Vehiculos.html" class="nav-group__label">Formularios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-formularios">
+                    <a href="Translado.html">Solicitud de traslado</a>
+                </div>
+            </div>
+            <a href="#">Reportes</a>
+            <a href="panelAD.html">Panel administrativo</a>
+            <div class="nav-group is-open" id="nav-usuarios">
+                <div class="nav-group__header">
+                    <button type="button" class="nav-group__toggle" aria-expanded="true"
+                        aria-controls="submenu-usuarios">
+                        <span class="arrow" aria-hidden="true">&#9654;</span>
+                    </button>
+                    <a href="usGest.html" class="nav-group__label active">Gestión de usuarios</a>
+                </div>
+                <div class="nav-group__submenu" id="submenu-usuarios">
+                    <a href="Crearusuario.html">Crear usuario</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="page">
+        <header class="page-header">
+            <h1>Gestión de Usuarios</h1>
+        </header>
+
+        <section class="page-content">
+            <div class="content-intro">
+                <div>
+                    <h2>Usuarios administrativos</h2>
+                    <p>Administración de cuentas del personal del hospital</p>
+                </div>
+                <a href="Crearusuario.html" class="primary-btn">Crear usuario</a>
+            </div>
+
+            <div class="users-panel">
+                <h3>Usuarios registrados</h3>
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuarios-tbody">
+                        <tr>
+                            <td colspan="4">Cargando usuarios...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="../JS/menuDesple.js"></script>
+    <script>
+
+        var tbody = document.getElementById('usuarios-tbody');
+        var apiUrl = '../../API/Usuarios/Usuarios.php';
+
+        async function cargarUsuarios() {
+            try {
+                var response = await fetch(apiUrl);
+                var data = await response.json();
+
+                if (!response.ok || !data.ok) {
+                    tbody.innerHTML = '<tr><td colspan="4">No se pudieron cargar los usuarios.</td></tr>';
+                    return;
+                }
+
+                if (!data.data || data.data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4">No hay usuarios registrados.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = data.data.map(function (usuario) {
+                    return '<tr data-id="' + usuario.id + '">' +
+                        '<td>' + usuario.cedula + '</td>' +
+                        '<td>' + usuario.nombre + '</td>' +
+                        '<td><span class="role-tag">' + usuario.rol + '</span></td>' +
+                        '<td class="acciones-cell">' +
+                        '<div class="menu-acciones">' +
+                        '<button type="button" class="btn-puntos" aria-haspopup="true" aria-expanded="false">&#8942;</button>' +
+                        '<div class="dropdown-menu">' +
+                        '<button type="button" class="btn-eliminar">Eliminar</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>';
+                }).join('');
+            } catch (error) {
+                tbody.innerHTML = '<tr><td colspan="4">Error al conectar con el servidor.</td></tr>';
+            }
+        }
+
+        function cerrarTodosLosMenus() {
+            document.querySelectorAll('.dropdown-menu.is-open').forEach(function (menu) {
+                menu.classList.remove('is-open');
+            });
+            document.querySelectorAll('.btn-puntos[aria-expanded="true"]').forEach(function (btn) {
+                btn.setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        async function eliminarUsuario(id, fila) {
+            try {
+                var response = await fetch(apiUrl + '?id=' + encodeURIComponent(id), {
+                    method: 'DELETE',
+                });
+                var data = await response.json();
+
+                if (!response.ok || !data.ok) {
+                    alert(data.mensaje || 'No se pudo eliminar el usuario.');
+                    return;
+                }
+
+                fila.remove();
+
+                if (!tbody.querySelector('tr')) {
+                    tbody.innerHTML = '<tr><td colspan="4">No hay usuarios registrados.</td></tr>';
+                }
+            } catch (error) {
+                alert('Error al conectar con el servidor.');
+            }
+        }
+
+        tbody.addEventListener('click', function (event) {
+            var puntosBtn = event.target.closest('.btn-puntos');
+            if (puntosBtn) {
+                var menu = puntosBtn.nextElementSibling;
+                var yaAbierto = menu.classList.contains('is-open');
+                cerrarTodosLosMenus();
+                if (!yaAbierto) {
+                    menu.classList.add('is-open');
+                    puntosBtn.setAttribute('aria-expanded', 'true');
+                }
+                return;
+            }
+
+            var eliminarBtn = event.target.closest('.btn-eliminar');
+            if (eliminarBtn) {
+                var fila = eliminarBtn.closest('tr');
+                var id = fila.getAttribute('data-id');
+                var nombre = fila.querySelector('td:nth-child(2)').textContent;
+
+                cerrarTodosLosMenus();
+
+                if (!confirm('¿Eliminar a "' + nombre + '"? Esta acción no se puede deshacer.')) {
+                    return;
+                }
+
+                eliminarUsuario(id, fila);
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('.menu-acciones')) {
+                cerrarTodosLosMenus();
+            }
+        });
+
+        cargarUsuarios();
+    </script>
+</body>
+
+</html>
