@@ -32,11 +32,11 @@
                 <div class="stats-column">
                     <div class="stat-card stat-card--satisfaction">
                         <div class="stat-card__label">Satisfacción general</div>
-                        <div class="stat-card__value">4/5</div>
+                        <div class="stat-card__value" id="stat-satisfaccion">-/5</div>
                     </div>
                     <div class="stat-card stat-card--completed">
                         <div class="stat-card__label">Encuestas completadas</div>
-                        <div class="stat-card__value">12</div>
+                        <div class="stat-card__value" id="stat-completadas">0</div>
                     </div>
                 </div>
 
@@ -58,19 +58,27 @@
                         </div>
 
                         <div class="rating-row" aria-label="Escala de satisfacción">
-                            <span>😠</span>
-                            <span>😕</span>
-                            <span>😐</span>
-                            <span>🙂</span>
-                            <span>😄</span>
+                            <button type="button" class="rating-btn" data-puntaje="1"
+                                aria-label="Muy insatisfecho">😠</button>
+                            <button type="button" class="rating-btn" data-puntaje="2"
+                                aria-label="Insatisfecho">😕</button>
+                            <button type="button" class="rating-btn" data-puntaje="3" aria-label="Neutral">😐</button>
+                            <button type="button" class="rating-btn" data-puntaje="4"
+                                aria-label="Satisfecho">🙂</button>
+                            <button type="button" class="rating-btn" data-puntaje="5"
+                                aria-label="Muy satisfecho">😄</button>
                         </div>
 
-                        <button type="button" class="btn-submit">ENVIAR ENCUESTA</button>
+                        <p class="survey-feedback" id="survey-feedback"></p>
+
+                        <button type="button" class="btn-submit" id="btn-enviar-encuesta">ENVIAR ENCUESTA</button>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+
+    <script src="../JS/encuesta.js"></script>
 </body>
 
 </html>

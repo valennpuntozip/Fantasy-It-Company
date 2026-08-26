@@ -234,3 +234,32 @@ body {
         margin-left: 0;
     }
 }
+
+.rating-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 2px solid transparent;
+    outline: none;
+    box-shadow: none;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.rating-btn:hover {
+    transform: scale(1.15);
+    background: #f0f0f0;
+}
+
+.rating-btn:focus {
+    outline: none;
+}
+
+.rating-btn.is-selected {
+    border-color: #0a7c85;
+    background: #d0f2f7;
+}
