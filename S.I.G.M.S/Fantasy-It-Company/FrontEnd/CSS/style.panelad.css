@@ -295,3 +295,111 @@ body {
         max-width: 100%;
     }
 }
+
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    background: #f3f7fb;
+    border-radius: 10px;
+}
+
+.user-menu__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0f172a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-menu__toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 18px;
+    letter-spacing: 2px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    color: #94a3b8;
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.user-menu__toggle:hover,
+.user-menu__toggle[aria-expanded="true"] {
+    background: #eef2f7;
+    color: #334155;
+}
+
+.user-menu__dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    min-width: 150px;
+    z-index: 20;
+    overflow: hidden;
+    padding: 6px;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.user-menu__dropdown.is-open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.user-menu__logout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 12px;
+    color: #dc2626;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: inherit;
+}
+
+.user-menu__logout:hover {
+    background: #fef2f2;
+}
+
+.user-menu--bottom {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 20px;
+    margin-bottom: 0;
+}
+
+.user-menu--bottom .user-menu__dropdown {
+    top: auto;
+    bottom: calc(100% + 6px);
+    transform: translateY(4px);
+}
+
+.user-menu--bottom .user-menu__dropdown.is-open {
+    transform: translateY(0);
+}
