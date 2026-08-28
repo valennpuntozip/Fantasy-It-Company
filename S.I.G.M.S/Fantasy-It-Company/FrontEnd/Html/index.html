@@ -31,17 +31,19 @@
                     <input id="nombre" name="nombre" type="text" autocomplete="given-name" required />
                 </div>
 
+                <p class="form-error" id="login-error"></p>
 
-                <button type="submit" class="btn btn-primary"
-                    onclick="window.location.href='botones.html'; return false;">Iniciar sesión</button>
+                <button type="submit" class="btn btn-primary" id="btn-login">Iniciar sesión</button>
             </form>
 
             <div class="guest-row">
-                <p>¿No es un funcionario?</p>
-                <a href="botones.html" id="guest-btn" class="btn btn-ghost">Iniciar sesión como invitado</a>
+                <p>¿No es un funcionario o paciente?</p>
+                <a href="docPac.html" id="guest-btn" class="btn btn-ghost">Ingresar como invitado</a>
             </div>
         </main>
     </div>
+
+    <script src="../JS/login.js"></script>
 </body>
 
 </html>

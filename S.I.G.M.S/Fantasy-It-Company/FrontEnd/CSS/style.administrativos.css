@@ -124,3 +124,11 @@ input {
         padding: 18px
     }
 }
+
+.form-error {
+    color: #d32f2f;
+    font-size: 0.85rem;
+    font-weight: bold;
+    min-height: 18px;
+    margin-top: -8px;
+}

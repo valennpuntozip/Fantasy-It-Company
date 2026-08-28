@@ -53,4 +53,23 @@ class Usuarios
             'rol' => $rol,
         ];
     }
+    public function validarLogin(string $cedula, string $nombre): ?array
+{
+    $sql = 'SELECT id, cedula, nombre, rol FROM usuarios WHERE cedula = :cedula LIMIT 1';
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute(['cedula' => $cedula]);
+    $usuario = $stmt->fetch();
+
+    if (!$usuario) {
+        return null;
+    }
+
+    $nombreCoincide = mb_strtolower(trim($usuario['nombre'])) === mb_strtolower(trim($nombre));
+
+    if (!$nombreCoincide) {
+        return null;
+    }
+
+    return $usuario;
+}
 }
