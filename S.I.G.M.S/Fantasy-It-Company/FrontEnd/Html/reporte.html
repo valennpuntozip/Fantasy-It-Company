@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrativo</title>
-    <link rel="stylesheet" href="../CSS/style.panelad.css" />
+    <title>Reportes</title>
+    <link rel="stylesheet" href="../CSS/style.reportes.css" />
 </head>
 
 <body>
@@ -24,8 +24,8 @@
                     <a href="Translado.html">Solicitud de traslado</a>
                 </div>
             </div>
-            <a href="reporte.html">Reportes</a>
-            <a href="panelAD.html" class="active">Panel administrativo</a>
+            <a href="reporte.html" class="active">Reportes</a>
+            <a href="panelAD.html">Panel administrativo</a>
             <div class="nav-group" id="nav-usuarios">
                 <div class="nav-group__header">
                     <button type="button" class="nav-group__toggle" aria-expanded="false"
@@ -51,57 +51,68 @@
 
     <div class="page">
         <header class="page-header">
-            <h1>Panel Administrativo</h1>
+            <h1>Reportes</h1>
         </header>
 
         <section class="page-content">
             <div class="content-intro">
-                <h2>Panel Administrativo</h2>
-                <p>Gestión de documentación del Hospital de Clínicas</p>
+                <h2>Reportes del sistema</h2>
+                <p>Resumen de la actividad reciente del hospital</p>
             </div>
 
-            <div class="admin-card">
-                <h3>Cargar nuevo documento</h3>
-                <form action="#" method="post">
-                    <div class="form-group">
-                        <label for="nombre-doc">Nombre del documento</label>
-                        <input type="text" id="nombre-doc" name="nombre-doc" />
+            <div class="reports-grid">
+                <article class="report-card">
+                    <div>
+                        <h3>Traslados realizados</h3>
+                        <p>Cantidad de solicitudes de traslado completadas este mes</p>
+                        <span class="report-tag">Transporte</span>
                     </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <textarea id="descripcion" name="descripcion"></textarea>
+                    <div class="report-meta">
+                        Este mes
+                        <strong>28</strong>
                     </div>
-                    <div class="form-group">
-                        <label for="categoria">Categoría</label>
-                        <select id="categoria" name="categoria">
-                            <option selected>Laboratorio</option>
-                            <option>Protocolos</option>
-                            <option>Guías</option>
-                            <option>Formularios</option>
-                        </select>
-                    </div>
-                    <button type="button" class="btn-upload">Cargar documento</button>
-                </form>
-            </div>
+                </article>
 
-            <div class="admin-card">
-                <h3>Documentos cargados</h3>
-                <div class="doc-list">
-                    <article class="doc-item">
-                        <h4>Protocolo</h4>
-                        <p>Proyecto descripción</p>
-                        <div class="doc-item__actions">
-                            <button type="button" class="btn-cat">Categoría</button>
-                            <button type="button" class="btn-view">Ver/Editar</button>
-                        </div>
-                    </article>
-                </div>
+                <article class="report-card">
+                    <div>
+                        <h3>Usuarios administrativos activos</h3>
+                        <p>Personal con acceso al sistema actualmente</p>
+                        <span class="report-tag">Usuarios</span>
+                    </div>
+                    <div class="report-meta">
+                        Total
+                        <strong>6</strong>
+                    </div>
+                </article>
+
+                <article class="report-card">
+                    <div>
+                        <h3>Documentos publicados</h3>
+                        <p>Protocolos y guías disponibles para pacientes</p>
+                        <span class="report-tag">Documentación</span>
+                    </div>
+                    <div class="report-meta">
+                        Total
+                        <strong>2</strong>
+                    </div>
+                </article>
+
+                <article class="report-card">
+                    <div>
+                        <h3>Encuestas de satisfacción</h3>
+                        <p>Respuestas recibidas y promedio general</p>
+                        <span class="report-tag">Encuestas</span>
+                    </div>
+                    <div class="report-meta">
+                        Promedio
+                        <strong>4.2/5</strong>
+                    </div>
+                </article>
             </div>
         </section>
     </div>
     <script src="../JS/session.js"></script>
     <script src="../JS/menuDesple.js"></script>
-
 </body>
 
 </html>
