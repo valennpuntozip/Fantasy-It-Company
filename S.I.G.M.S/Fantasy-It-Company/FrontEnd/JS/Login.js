@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
         errorMsg.textContent = '';
 
         var cedula = document.getElementById('cedula').value.trim();
-        var nombre = document.getElementById('nombre').value.trim();
+        var contrasena = document.getElementById('contrasena').value;
 
-        if (cedula === '' || nombre === '') {
+        if (cedula === '' || contrasena === '') {
             errorMsg.textContent = 'Completá ambos campos.';
             return;
         }
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cedula: cedula, nombre: nombre }),
+                body: JSON.stringify({ cedula: cedula, contrasena: contrasena }),
             });
             var data = await response.json();
 
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            sessionStorage.setItem('usuarioActual', JSON.stringify(data.data));
             window.location.href = 'botones.html';
         } catch (error) {
             errorMsg.textContent = 'Error al conectar con el servidor.';

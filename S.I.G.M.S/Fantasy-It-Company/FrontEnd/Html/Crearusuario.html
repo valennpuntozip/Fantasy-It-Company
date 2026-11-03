@@ -79,6 +79,15 @@
                         <input type="password" id="repetir" name="repetir" required />
                     </div>
 
+                    <div class="form-group">
+                        <label for="rol">Rol</label>
+                        <select id="rol" name="rol">
+                            <option value="Operador" selected>Operador</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+
                     <p id="form-mensaje" class="form-mensaje" hidden></p>
 
                     <button type="submit" class="btn-submit">Crear usuario</button>
@@ -88,62 +97,7 @@
     </div>
     <script src="../JS/session.js"></script>
     <script src="../JS/menuDesple.js"></script>
-
-    <script>
-        var form = document.getElementById('form-crear-usuario');
-        var mensaje = document.getElementById('form-mensaje');
-        var apiUrl = '../../API/Usuarios/Usuarios.php';
-
-        function mostrarMensaje(texto, ok) {
-            mensaje.hidden = false;
-            mensaje.textContent = texto;
-            mensaje.style.color = ok ? '#166534' : '#b91c1c';
-        }
-
-        form.addEventListener('submit', async function (event) {
-            event.preventDefault();
-
-            var cedula = document.getElementById('cedula').value.trim();
-            var nombre = document.getElementById('nombre').value.trim();
-            var contrasena = document.getElementById('contrasena').value;
-            var repetir = document.getElementById('repetir').value;
-
-            if (!cedula || !nombre || !contrasena) {
-                mostrarMensaje('Completá cédula, nombre y contraseña.', false);
-                return;
-            }
-
-            if (contrasena !== repetir) {
-                mostrarMensaje('Las contraseñas no coinciden.', false);
-                return;
-            }
-
-            try {
-                var response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        cedula: cedula,
-                        nombre: nombre,
-                        contrasena: contrasena,
-                        repetir: repetir
-                    })
-                });
-
-                var data = await response.json();
-
-                if (!response.ok || !data.ok) {
-                    mostrarMensaje(data.mensaje || 'No se pudo crear el usuario.', false);
-                    return;
-                }
-
-                mostrarMensaje(data.mensaje || 'Usuario creado correctamente.', true);
-                form.reset();
-            } catch (error) {
-                mostrarMensaje('Error al conectar con el servidor. Revisá que PHP y MySQL estén activos.', false);
-            }
-        });
-    </script>
+    <script src="../JS/crearusuario.js"></script>
 </body>
 
 </html>

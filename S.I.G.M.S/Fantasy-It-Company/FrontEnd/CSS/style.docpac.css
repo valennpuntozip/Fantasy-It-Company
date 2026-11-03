@@ -49,9 +49,7 @@ body {
     transition: background 0.2s ease;
 }
 
-.sidebar a[href="botones.html"]:hover {
-    background: transparent;
-}
+
 
 .sidebar a:hover,
 .sidebar a.active {

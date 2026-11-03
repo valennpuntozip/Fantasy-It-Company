@@ -11,48 +11,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 require_once __DIR__ . '/../../BackEnd/config/datebase.php';
+require_once __DIR__ . '/../../BackEnd/config/auth.php';
 require_once __DIR__ . '/../../BackEnd/models/Usuarios.php';
 
-$model = new Usuarios($pdo);
-$method = $_SERVER['REQUEST_METHOD'];
-
-if ($method !== 'POST') {
-    http_response_code(405);
-    echo json_encode([
-        'ok' => false,
-        'mensaje' => 'Método no permitido',
-    ]);
-    exit;
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    responderError(405, 'Método no permitido');
 }
 
 try {
+    $model = new Usuarios($pdo);
+
     $input = json_decode(file_get_contents('php://input'), true);
     if (!is_array($input)) {
         $input = $_POST;
     }
 
     $cedula = trim((string) ($input['cedula'] ?? ''));
-    $nombre = trim((string) ($input['nombre'] ?? ''));
+    $contrasena = (string) ($input['contrasena'] ?? '');
 
-    if ($cedula === '' || $nombre === '') {
-        http_response_code(400);
-        echo json_encode([
-            'ok' => false,
-            'mensaje' => 'Cédula y nombre son obligatorios',
-        ]);
-        exit;
+    if ($cedula === '' || $contrasena === '') {
+        responderError(400, 'Cédula y contraseña son obligatorias');
     }
 
-    $usuario = $model->validarLogin($cedula, $nombre);
+    $usuario = $model->validarLogin($cedula, $contrasena);
 
     if (!$usuario) {
-        http_response_code(401);
-        echo json_encode([
-            'ok' => false,
-            'mensaje' => 'Cédula o nombre incorrectos',
-        ]);
-        exit;
+        responderError(401, 'Cédula o contraseña incorrectas');
     }
+
+    iniciarSesion();
+    session_regenerate_id(true);
+    $_SESSION['usuario'] = $usuario;
 
     echo json_encode([
         'ok' => true,
@@ -60,9 +49,5 @@ try {
         'data' => $usuario,
     ]);
 } catch (Throwable $e) {
-    http_response_code(500);
-    echo json_encode([
-        'ok' => false,
-        'mensaje' => 'Error interno del servidor',
-    ]);
+    responderError(500, 'Error interno del servidor');
 }

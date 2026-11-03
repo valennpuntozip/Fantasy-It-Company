@@ -1,26 +1,52 @@
-function obtenerUsuarioActual() {
-    var data = sessionStorage.getItem('usuarioActual');
-    return data ? JSON.parse(data) : null;
-}
+var API_SESION = '../../API/Usuarios/Sesion.php';
+var API_LOGOUT = '../../API/Usuarios/Logout.php';
 
-function requerirSesion() {
-    var usuario = obtenerUsuarioActual();
-    if (!usuario) {
-        window.location.href = 'index.html';
+var PAGINAS_SOLO_ADMIN = ['usGest.html', 'Crearusuario.html'];
+var ELEMENTOS_SOLO_ADMIN = ['#nav-usuarios', 'a.card[href="usGest.html"]'];
+
+async function obtenerUsuarioActual() {
+    try {
+        var response = await fetch(API_SESION, { cache: 'no-store' });
+        if (!response.ok) {
+            return null;
+        }
+        var data = await response.json();
+        return data.ok ? data.data : null;
+    } catch (error) {
+        return null;
     }
-    return usuario;
 }
 
-function cerrarSesion() {
-    sessionStorage.removeItem('usuarioActual');
+async function cerrarSesion() {
+    try {
+        await fetch(API_LOGOUT, { method: 'POST' });
+    } catch (error) {
+    }
     window.location.href = 'index.html';
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var usuario = requerirSesion();
+function esPaginaSoloAdmin() {
+    var actual = window.location.pathname.split('/').pop().toLowerCase();
+    return PAGINAS_SOLO_ADMIN.some(function (pagina) {
+        return pagina.toLowerCase() === actual;
+    });
+}
 
+function aplicarRoles(usuario) {
+    if (usuario.rol === 'Administrador') {
+        return;
+    }
+
+    ELEMENTOS_SOLO_ADMIN.forEach(function (selector) {
+        document.querySelectorAll(selector).forEach(function (elemento) {
+            elemento.remove();
+        });
+    });
+}
+
+function configurarMenuUsuario(usuario) {
     var nombreEl = document.getElementById('user-menu-name');
-    if (nombreEl && usuario) {
+    if (nombreEl) {
         nombreEl.textContent = usuario.nombre;
     }
 
@@ -54,4 +80,21 @@ document.addEventListener('DOMContentLoaded', function () {
             cerrarSesion();
         });
     }
+}
+
+document.addEventListener('DOMContentLoaded', async function () {
+    var usuario = await obtenerUsuarioActual();
+
+    if (!usuario) {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    if (usuario.rol !== 'Administrador' && esPaginaSoloAdmin()) {
+        window.location.href = 'botones.html';
+        return;
+    }
+
+    aplicarRoles(usuario);
+    configurarMenuUsuario(usuario);
 });

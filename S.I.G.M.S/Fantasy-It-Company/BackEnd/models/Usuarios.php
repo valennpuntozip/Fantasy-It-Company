@@ -42,7 +42,7 @@ class Usuarios
         $stmt->execute([
             'cedula' => $cedula,
             'nombre' => $nombre,
-            'contrasena' => $contrasena,
+            'contrasena' => password_hash($contrasena, PASSWORD_BCRYPT),
             'rol' => $rol,
         ]);
 
@@ -53,9 +53,9 @@ class Usuarios
             'rol' => $rol,
         ];
     }
-    public function validarLogin(string $cedula, string $nombre): ?array
+   public function validarLogin(string $cedula, string $contrasena): ?array
 {
-    $sql = 'SELECT id, cedula, nombre, rol FROM usuarios WHERE cedula = :cedula LIMIT 1';
+    $sql = 'SELECT id, cedula, nombre, contrasena, rol FROM usuarios WHERE cedula = :cedula LIMIT 1';
     $stmt = $this->db->prepare($sql);
     $stmt->execute(['cedula' => $cedula]);
     $usuario = $stmt->fetch();
@@ -64,12 +64,61 @@ class Usuarios
         return null;
     }
 
-    $nombreCoincide = mb_strtolower(trim($usuario['nombre'])) === mb_strtolower(trim($nombre));
+    $guardada = $usuario['contrasena'];
 
-    if (!$nombreCoincide) {
+    if (strpos($guardada, '$2y$') === 0) {
+        $coincide = password_verify($contrasena, $guardada);
+    } else {
+        $coincide = hash_equals($guardada, $contrasena);
+        if ($coincide) {
+            $upd = $this->db->prepare('UPDATE usuarios SET contrasena = :hash WHERE id = :id');
+            $upd->execute([
+                'hash' => password_hash($contrasena, PASSWORD_BCRYPT),
+                'id' => $usuario['id'],
+            ]);
+        }
+    }
+
+    if (!$coincide) {
         return null;
     }
 
+    unset($usuario['contrasena']);
     return $usuario;
+}
+
+public function obtenerPorId(int $id): ?array
+{
+    $stmt = $this->db->prepare('SELECT id, cedula, nombre, rol FROM usuarios WHERE id = :id LIMIT 1');
+    $stmt->execute(['id' => $id]);
+    $usuario = $stmt->fetch();
+    return $usuario ?: null;
+}
+
+public function existeCedulaEnOtro(string $cedula, int $id): bool
+{
+    $stmt = $this->db->prepare('SELECT 1 FROM usuarios WHERE cedula = :cedula AND id <> :id LIMIT 1');
+    $stmt->execute(['cedula' => $cedula, 'id' => $id]);
+    return (bool) $stmt->fetchColumn();
+}
+
+public function actualizar(int $id, string $cedula, string $nombre, string $rol, string $contrasena = ''): bool
+{
+    $params = [
+        'id' => $id,
+        'cedula' => $cedula,
+        'nombre' => $nombre,
+        'rol' => $rol,
+    ];
+
+    if ($contrasena !== '') {
+        $sql = 'UPDATE usuarios SET cedula = :cedula, nombre = :nombre, rol = :rol, contrasena = :contrasena WHERE id = :id';
+        $params['contrasena'] = password_hash($contrasena, PASSWORD_BCRYPT);
+    } else {
+        $sql = 'UPDATE usuarios SET cedula = :cedula, nombre = :nombre, rol = :rol WHERE id = :id';
+    }
+
+    $stmt = $this->db->prepare($sql);
+    return $stmt->execute($params);
 }
 }
