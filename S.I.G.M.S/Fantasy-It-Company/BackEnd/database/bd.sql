@@ -25,3 +25,14 @@ ON DUPLICATE KEY UPDATE
   nombre = VALUES(nombre),
   contrasena = VALUES(contrasena),
   rol = VALUES(rol);
+
+-- Usuarios de la base de datos
+CREATE USER IF NOT EXISTS 'sigsm_admin'@'localhost' IDENTIFIED BY 'Admin_Sigsm_2026';
+GRANT ALL PRIVILEGES ON sigsm.* TO 'sigsm_admin'@'localhost';
+
+CREATE USER IF NOT EXISTS 'sigsm_app'@'localhost' IDENTIFIED BY 'App_Sigsm_2026';
+GRANT SELECT, INSERT, UPDATE, DELETE ON sigsm.usuarios TO 'sigsm_app'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON sigsm.documentos TO 'sigsm_app'@'localhost';
+GRANT SELECT, INSERT ON sigsm.encuestas TO 'sigsm_app'@'localhost';
+
+FLUSH PRIVILEGES;

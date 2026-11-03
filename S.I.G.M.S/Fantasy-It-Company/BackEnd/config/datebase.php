@@ -2,8 +2,8 @@
 
 $host = 'localhost';
 $dbname = 'sigsm';
-$username = 'root';
-$password = '';
+$username = 'sigsm_app';
+$password = 'App_Sigsm_2026';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host={$host};dbname={$dbname};charset={$charset}";
