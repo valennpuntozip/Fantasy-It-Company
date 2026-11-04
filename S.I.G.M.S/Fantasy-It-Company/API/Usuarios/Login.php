@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once __DIR__ . '/../../BackEnd/config/datebase.php';
 require_once __DIR__ . '/../../BackEnd/config/auth.php';
+require_once __DIR__ . '/../../BackEnd/config/validaciones.php';
 require_once __DIR__ . '/../../BackEnd/models/Usuarios.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -31,6 +32,11 @@ try {
 
     if ($cedula === '' || $contrasena === '') {
         responderError(400, 'Cédula y contraseña son obligatorias');
+    }
+
+    $error = validarCedulaLogin($cedula);
+    if ($error !== null) {
+        responderError(400, $error);
     }
 
     $usuario = $model->validarLogin($cedula, $contrasena);

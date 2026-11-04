@@ -15,13 +15,13 @@ require_once __DIR__ . '/../../BackEnd/models/Encuestas.php';
 
 $model = new Encuestas($pdo);
 $method = $_SERVER['REQUEST_METHOD'];
+$serviciosValidos = ['Odontología', 'Cardiología', 'Pediatría', 'Emergencias'];
 
 try {
     if ($method === 'GET') {
-        $estadisticas = $model->estadisticas();
         echo json_encode([
             'ok' => true,
-            'data' => $estadisticas,
+            'data' => $model->estadisticas(),
         ]);
         exit;
     }
@@ -35,11 +35,11 @@ try {
         $servicio = trim((string) ($input['servicio'] ?? ''));
         $puntaje = (int) ($input['puntaje'] ?? 0);
 
-        if ($servicio === '') {
+        if (!in_array($servicio, $serviciosValidos, true)) {
             http_response_code(400);
             echo json_encode([
                 'ok' => false,
-                'mensaje' => 'El servicio es obligatorio',
+                'mensaje' => 'Servicio inválido',
             ]);
             exit;
         }
@@ -54,14 +54,13 @@ try {
         }
 
         $encuesta = $model->crear($servicio, $puntaje);
-        $estadisticas = $model->estadisticas();
 
         http_response_code(201);
         echo json_encode([
             'ok' => true,
             'mensaje' => 'Encuesta enviada correctamente',
             'data' => $encuesta,
-            'estadisticas' => $estadisticas,
+            'estadisticas' => $model->estadisticas(),
         ]);
         exit;
     }

@@ -46,13 +46,18 @@ form.addEventListener('submit', async function (event) {
     var repetir = document.getElementById('repetir').value;
     var rol = document.getElementById('rol').value;
 
-    if (!cedula || !nombre || (!editando && !contrasena)) {
-        mostrarMensaje(editando ? 'Completá cédula y nombre.' : 'Completá cédula, nombre y contraseña.', false);
-        return;
+    var error = validarCedula(cedula) || validarNombre(nombre);
+
+    if (!error && (!editando || contrasena !== '')) {
+        error = validarContrasena(contrasena);
     }
 
-    if (contrasena !== repetir) {
-        mostrarMensaje('Las contraseñas no coinciden.', false);
+    if (!error && contrasena !== repetir) {
+        error = 'Las contraseñas no coinciden.';
+    }
+
+    if (error) {
+        mostrarMensaje(error, false);
         return;
     }
 

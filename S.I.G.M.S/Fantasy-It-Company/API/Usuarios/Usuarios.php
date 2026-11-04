@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once __DIR__ . '/../../BackEnd/config/datebase.php';
 require_once __DIR__ . '/../../BackEnd/config/auth.php';
+require_once __DIR__ . '/../../BackEnd/config/validaciones.php';
 require_once __DIR__ . '/../../BackEnd/models/Usuarios.php';
 
 $model = new Usuarios($pdo);
@@ -19,7 +20,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $rolesValidos = ['Administrador', 'Supervisor', 'Operador'];
 
 try {
-    // Todo lo de este archivo es solo para Administradores
+//solo para admin
     $actual = requerirRol(['Administrador']);
 
     if ($method === 'GET') {
@@ -48,8 +49,9 @@ try {
         $repetir = (string) ($input['repetir'] ?? $contrasena);
         $rol = trim((string) ($input['rol'] ?? 'Operador'));
 
-        if ($cedula === '' || $nombre === '') {
-            responderError(400, 'Cédula y nombre son obligatorios');
+        $error = validarCedula($cedula) ?? validarNombre($nombre);
+        if ($error !== null) {
+            responderError(400, $error);
         }
 
         if (!in_array($rol, $rolesValidos, true)) {
@@ -60,11 +62,15 @@ try {
             responderError(400, 'Las contraseñas no coinciden');
         }
 
-        if ($method === 'POST') {
-            if ($contrasena === '') {
-                responderError(400, 'La contraseña es obligatoria');
+        // al crear la contraseña es obligatoria y al editar solo se valida si se quiere cambiar
+        if ($method === 'POST' || $contrasena !== '') {
+            $error = validarContrasena($contrasena);
+            if ($error !== null) {
+                responderError(400, $error);
             }
+        }
 
+        if ($method === 'POST') {
             if ($model->existeCedula($cedula)) {
                 responderError(409, 'Ya existe un usuario con esa cédula');
             }
@@ -80,7 +86,7 @@ try {
             exit;
         }
 
-        // PUT: modificar un usuario existente
+  //modifica je
         $id = (int) ($input['id'] ?? 0);
 
         if ($id <= 0 || !$model->obtenerPorId($id)) {

@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        var errorCedula = validarCedulaLogin(cedula);
+        if (errorCedula) {
+            errorMsg.textContent = errorCedula;
+            return;
+        }
+
         btnLogin.disabled = true;
         btnLogin.textContent = 'Verificando...';
 
